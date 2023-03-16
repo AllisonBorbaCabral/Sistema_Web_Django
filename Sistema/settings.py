@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'Sistema.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LOJA',
+        'NAME': 'SISTEMA_WEB',
         'USER': 'root',
         'PASSWORD': 'iGke%H#c8dV@hW',
         'HOST': 'localhost',
