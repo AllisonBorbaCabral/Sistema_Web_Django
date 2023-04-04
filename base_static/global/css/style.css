@@ -1,0 +1,47 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62, 5%;
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: gainsboro;
+}
+
+
+
+
+.main-logo {
+    font-size: 38px;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.main-header {
+    padding: 2px;
+}
+
+.main-content {
+
+    height: 800px; 
+
+}
+
+.title-list{
+    font-size: 26px;
+}
+
+.consulta{
+    margin-top: 20px;
+}

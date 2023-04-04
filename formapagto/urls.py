@@ -1,7 +1,9 @@
 from django.urls import path
 
-from formapagto.views import home
+from . import views
 
 urlpatterns = [
-    path('forma-pagamento/', home),
+    path('formapagto/', views.FormaPagtoIndex, name='consulta-formapagto'),
+    path('formapagto/cadastro/', views.FormaPagtoCreate.as_view(),
+         name="cadastrar-formapagto"),
 ]
