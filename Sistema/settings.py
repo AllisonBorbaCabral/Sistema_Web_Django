@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'pais',
     'estado',
     'cidade',
+    'condicaopagto',
+    'cliente',
+    'cor',
+    'pedido',
+    'tamanho',
 ]
 
 MIDDLEWARE = [

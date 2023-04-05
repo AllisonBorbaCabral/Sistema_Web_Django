@@ -15,6 +15,9 @@ class cidade(models.Model):
     dt_ult_alt = models.DateTimeField(
         db_column='DT_ULT_ALTERACAO', auto_now=False, null=False,)
 
+    def __str__(self):
+        return " {} ".format(self.nm_cidade)
+
     def getId(self):
         return (f'{self.id}')
 
@@ -25,4 +28,4 @@ class cidade(models.Model):
         return (f'{self.ddd}')
 
     def getEstado(self):
-        return (f'{self.estado.nm_estado}')
+        return (f'{self.estado.getEstado()}')

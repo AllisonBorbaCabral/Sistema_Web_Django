@@ -20,4 +20,4 @@ class estado(models.Model):
         return " {} ".format(self.nm_estado)
 
     def getEstado(self):
-        return (f'{self.nm_estado}')
+        return (f'{self.nm_estado} - {self.uf}')

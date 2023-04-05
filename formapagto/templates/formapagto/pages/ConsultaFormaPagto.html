@@ -1,14 +1,10 @@
 {% include 'pages/head.html' %}
-
 <body>
-
     {% include 'pages/menu.html' %}
-
     <div class="main-content container consulta">           
-        <h1 class="title-list">FORMAS DE PAGAMENTO</h1>      
+        <h1 class="title-list"><i class="fa-solid fa-money-bill"></i> FORMAS DE PAGAMENTO</h1>      
         <a href="{% url 'cadastrar-formapagto' %}"><button class="btn btn-primary">Adicionar</button></a>  
         <hr>        
-
         <table class="table table-striped">
             <thead class="table-dark fs-5">
                 <tr>                
@@ -34,22 +30,16 @@
                         <a class="btn btn-sm btn-secondary" href="{% url 'consulta-estado' %}"><i class="fa-solid fa-pen"></i></a>
                         |
                         <a class="btn btn-sm btn-danger" href="{% url 'consulta-estado' %}"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                    
+                    </td>                    
                 </tr>
-            {% empty %}
-            <tr>
-                <td >Nenhum registro encontrado.</td>
-            </tr>
-            {% endfor %}                                        
-    </tbody>
-</table>   
-        
-
-
+                {% empty %}
+                <tr>
+                    <td >Nenhum registro encontrado.</td>
+                </tr>
+                {% endfor %}                                        
+            </tbody>
+        </table>           
     </div>
-    
-
 </body>
 
 {% include 'pages/footer.html' %}

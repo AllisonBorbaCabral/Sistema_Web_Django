@@ -1,0 +1,58 @@
+{% include 'pages/head.html' %}
+
+<body>
+
+    {% include 'pages/menu.html' %}
+
+    <div class="main-content container consulta">
+        <h1 class="title-list"><i class="fa-solid fa-users"></i> CLIENTES</h1>
+        <a href="{% url 'cadastrar-cliente' %}"><button class="btn btn-primary">Adicionar</button></a>
+        <hr>
+        <table class="table table-striped">
+            <thead class="table-dark fs-5">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">CPF/CNPJ</th>
+                    <th scope="col">NOME/RAZÃO SOCIAL</th>
+                    <th scope="col">ENDEREÇO</th>
+                    <th scope="col">CADASTRO</th>
+                    <th scope="col">ÚLTIMA ALTERAÇÃO</th>
+                    <th scope="col-sm">OPÇÕES</th>
+                </tr>
+            </thead>
+            <tbody class="fs-5  table-light">
+                {% for cliente in cliente_list %}
+                <tr>
+                    <th scope="row">{{cliente.id}}</th>
+                    <td>{{cliente.getCPFCNPJ}}</td>
+                    <td>{{cliente.getCliente}}</td>
+                    <td>{{cliente.getEndereco}}</td>
+                    <td>{{cliente.dt_cadastro}}</td>
+                    <td>{{cliente.dt_ult_alt}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="{% url 'consulta-estado' %}"><i
+                                class="fa-solid fa-eye"></i></a>
+                        |
+                        <a class="btn btn-sm btn-secondary" href="{% url 'consulta-estado' %}"><i
+                                class="fa-solid fa-pen"></i></a>
+                        |
+                        <a class="btn btn-sm btn-danger" href="{% url 'consulta-estado' %}"><i
+                                class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>Nenhum registro encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+
+</body>
+{% include 'pages/footer.html' %}
+
+</html>

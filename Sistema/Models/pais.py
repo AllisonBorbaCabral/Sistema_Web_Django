@@ -17,4 +17,4 @@ class pais(models.Model):
         return " {} ".format(self.nm_pais)
 
     def getPais(self):
-        return (f'{self.nm_pais}')
+        return (f'{self.nm_pais} - {self.sigla}')
