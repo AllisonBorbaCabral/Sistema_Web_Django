@@ -1,0 +1,25 @@
+{% extends 'pages/cadastro.html' %}
+
+{% block title-cadastro %}Editar País{% endblock %}
+
+{% block cadastro-content %}
+{% csrf_token %}
+{{ form.as_p }}
+<div>
+    <label>Data de Cadastro:</label>
+    <input type="text" value="{{ readonly_cadastro }}" readonly disabled>
+    <label>Data da Última Alteração:</label>
+    <input type="text" value="{{ readonly_alteracao }}" readonly disabled>
+</div>
+{% endblock %}
+{% block submit-btn %}SALVAR{% endblock %}
+
+{% comment %} {% extends 'pages/base.html' %}
+
+{% block modal-content %}
+<h1>Editar País</h1>
+
+{% csrf_token %}
+{{ form.as_p }}
+teste
+{% endblock  %} {% endcomment %}

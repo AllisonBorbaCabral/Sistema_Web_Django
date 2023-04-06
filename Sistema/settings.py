@@ -149,7 +149,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'base_static',
+    BASE_DIR / 'base_static/global',
 ]
 STATIC_ROOT = BASE_DIR / 'static'
 

@@ -1,6 +1,12 @@
-<p class="lead" style="color: red"> * Campos Obrigatórios</p>
-<form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Cadastrar</button>    
-</form>
+{% extends 'pages/base.html' %}
+
+{% block content %}
+    <h1>{% block title-cadastro %}{% endblock %}</h1>
+    <p class="lead" style="color: red"> * Campos Obrigatórios</p>
+    <form action="" method="POST">
+        {%block cadastro-content %}{% endblock %}        
+        <button type="submit" class="btn btn-primary">{% block submit-btn %}{% endblock  %}</button>
+    </form>
+
+
+{% endblock %}

@@ -1,51 +1,50 @@
-{% include 'pages/head.html' %}
-<body>
+{% extends 'pages/base.html' %}
 
-    {% include 'pages/menu.html' %}
-    {% include 'pages/Modal.html' %}
-    <div class="main-content container consulta">           
-        <h1 class="title-list"><i class="fa-solid fa-earth-americas"></i> PAÍSES</h1>   
-        <a href="{% url 'cadastrar-pais' %}"><button class="btn btn-primary">Adicionar</button></a>
-        <hr>        
-        <div style="font-size: 20px">
-            <table id="tablepais" class="table table-striped display fs-6" style="width:100%">            
-                <thead class="table-dark">
-                    <tr>                
-                        <th scope="col">ID</th>                    
-                        <th scope="col">PAÍS</th>
-                        <th scope="col">SIGLA</th>
-                        <th scope="col">DDI</th>
-                        <th scope="col">CADASTRO</th>
-                        <th scope="col">ÚLTIMA ALTERAÇÃO</th>
-                        <th scope="col-sm">OPÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody class="fs-5 table-light">
-                        {% for pais in pais_list.all %}
-                        <tr>
-                            <th scope="row">{{pais.id}}</th>
-                            <td>{{pais.nm_pais}}</td>
-                            <td>{{pais.sigla}}</td>
-                            <td>{{pais.ddi}}</td>                           
-                            <td>{{pais.dt_cadastro}}</td>
-                            <td>{{pais.dt_ult_alt}}</td>
-                            <td>                            
-                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#myModal" data-bs-url="{% url 'pais-view' pk=pais.id %}"><i class="fa-solid fa-eye"></i></button>
-                                |
-                                <a class="btn btn-sm btn-secondary" href="{% url 'pais-view' pais.id %}"><i class="fa-solid fa-pen"></i></a>
-                                |
-                                <a class="btn btn-sm btn-danger" href="{% url 'consulta-estado' %}"><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        {% endfor %}
-                        </tr>                                                  
-                </tbody>
-            </table>
-        </div>
+{% block content %}
+<div class="main-content container consulta">
+    <h1 class="title-list"><i class="fa-solid fa-earth-americas"></i> PAÍSES</h1>
+    <a href="{% url 'cadastrar-pais' %}"><button class="btn btn-primary">Adicionar</button></a>
+    <hr>
+    <div style="font-size: 20px">
+        <table id="tablepais" class="table table-striped display fs-6" style="width:100%">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">PAÍS</th>
+                    <th scope="col">SIGLA</th>
+                    <th scope="col">DDI</th>
+                    <th scope="col">CADASTRO</th>
+                    <th scope="col">ÚLTIMA ALTERAÇÃO</th>
+                    <th scope="col-sm">OPÇÕES</th>
+                </tr>
+            </thead>
+            <tbody class="fs-5 table-light">
+                {% for pais in pais_list.all %}
+                <tr>
+                    <th scope="row">{{pais.id}}</th>
+                    <td>{{pais.nm_pais}}</td>
+                    <td>{{pais.sigla}}</td>
+                    <td>{{pais.ddi}}</td>
+                    <td>{{pais.dt_cadastro}}</td>
+                    <td>{{pais.dt_ult_alt}}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                            data-bs-target="#myModal" data-bs-url="{% url 'pais-view' pk=pais.id %}"><i
+                                class="fa-solid fa-eye"></i></button>
+                        |
+                        {% comment %} <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#myModal" data-bs-url="{% url 'editar-pais' pk=pais.id %}"><i
+                                class="fa-solid fa-pen"></i></button> {% endcomment %}
+                        <a class="btn btn-sm btn-secondary" href="{% url 'editar-pais' pk=pais.id %}"><i
+                                class="fa-solid fa-pen"></i></a>
+                        |
+                        <a class="btn btn-sm btn-danger" href="{% url 'consulta-estado' %}"><i
+                                class="fa-solid fa-trash"></i></a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
     </div>
-</body>
-
-{% include 'pages/footer.html' %}
-
-<script>{% include 'pais/partials/script.js' %}</script>
-
-</html>
+</div>
+{% endblock %}

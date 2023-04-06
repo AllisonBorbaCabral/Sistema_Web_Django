@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
+from .forms import *
 
 from Sistema.Models.pais import pais
 
@@ -15,19 +16,17 @@ def PaisIndex(request):
     return render(request, 'pais/pages/ConsultaPais.html', data)
 
 
-# render(request, 'pais/pages/ConsultaPais.html', context)
+def PaisCreate(request):
+    return CadastroPaisView.as_view()(request)
 
 
-class PaisCreate(CreateView):
-    model = pais
-    fields = [
-        'id', 'nm_pais', 'ddi', 'sigla'
-    ]
-    template_name = 'pais/pages/CadastroPais.html'
-    success_url = reverse_lazy('consulta-pais')
-
+def PaisEdit(request, pk):
+    view = EditarPaisView.as_view()
+    return view(request, pk)
 
 # VIEW MODAL
+
+
 def PaisView(request, pk):
     Pais = get_object_or_404(pais, pk=pk)
     data = {
