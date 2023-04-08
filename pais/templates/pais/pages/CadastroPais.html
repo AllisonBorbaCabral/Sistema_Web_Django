@@ -1,9 +1,31 @@
-{% extends 'pages/cadastro.html' %}
+{% extends 'pages/form.html' %}
 
-{% block title-cadastro %}Cadastro de Países{% endblock %}
-
-{% block cadastro-content %}
-    {% csrf_token %}
-    {{ form.as_p }}    
+{% block title %}Cadastro de Países{% endblock %}
+{% block form-title %}Cadastro de Países{% endblock %}
+{% block form-config %}method="POST"{% endblock %}
+{% block form-content %}    
+    <label for="nm_pais">País:</label>
+    <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control w-100" name="nm_pais" value="{{ Pais.1 }}" required maxlength="100">
+    <div class="row mb-2 mt-2">
+        <div class="col-sm-3">
+            <label for="ddi">DDI:</label>
+            <input id="ddi" type="text" placeholder="DDI" class="form-control" value="{{ Pais.2 }}" name="ddi" required style="width: 100px;" maxlength="4">
+        </div>
+        <div class="col-sm">
+            <label for="sigla">Sigla:</label>
+            <input id="sigla" type="text" placeholder="Sigla" class="form-control" value="{{ Pais.3 }}" name="sigla" required style="width: 100px;" maxlength="3">
+        </div>
+    </div>
+    <div class="row mb-2 mt-2">
+        <div class="col-sm-4">
+            <label for="dt_cadastro">Data de Cadastro:</label>
+            <input id="dt_cadastro" type="datetime" name="dt_cadastro" value="{{ Pais.4 }}" class="form-control" disabled style="width:190px">
+        </div>
+        <div class="col-sm">
+            <label for="dt_ult_alt">Data da Última Alteração:</label>
+            <input id="dt_ult_alt" type="datetime" name="dt_cadastro" value="{{ Pais.5 }}" class="form-control" disabled style="width:190px">
+        </div>
+    </div>
+    
 {% endblock %}
-{% block submit-btn %}CADASTRAR{% endblock  %}
+{% block submit-btn-name %}CADASTRAR{% endblock %}

@@ -11,7 +11,7 @@ class pais(models.Model):
     dt_cadastro = models.DateTimeField(
         db_column='DT_CADASTRO', auto_now_add=True, null=False)
     dt_ult_alt = models.DateTimeField(
-        db_column='DT_ULT_ALTERACAO', auto_now=False, null=False)
+        db_column='DT_ULT_ALTERACAO', null=False)
 
     @property
     def readonly_cadastro(self):

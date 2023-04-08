@@ -1,25 +1,28 @@
-{% extends 'pages/cadastro.html' %}
+{% extends 'pages/form.html' %}
 
-{% block title-cadastro %}Editar País{% endblock %}
+{% block form-config %} id="edit-pais" action="{% url 'atualizar-pais' pk=Pais.pk %}" method="POST"{% endblock  %}
 
-{% block cadastro-content %}
-{% csrf_token %}
-{{ form.as_p }}
-<div>
-    <label>Data de Cadastro:</label>
-    <input type="text" value="{{ readonly_cadastro }}" readonly disabled>
-    <label>Data da Última Alteração:</label>
-    <input type="text" value="{{ readonly_alteracao }}" readonly disabled>
-</div>
+{% block form-content %}      
+{%csrf_token%}
+<input type="text" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div class="form-group">                    
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id" value="{{ Pais.id }}" class="form-control" disabled style="width: 60px">
+        <label for="nm_pais">País:</label>
+        <input type="text" id="nm_pais" name="nm_pais" value="{{ Pais.nm_pais }}" class="form-control">
+        <label for="ddi">DDI:</label>
+        <input type="text" id="ddi" name="ddi" value="{{ Pais.ddi }}" class="form-control">
+        <label for="sigla">Sigla:</label>
+        <input type="text" id="sigla" name="sigla" value="{{ Pais.sigla }}" class="form-control">
+        <label for="dt_cadastro">Data de Cadastro:</label>
+        <input type="datetime" id="dt_cadastro" name="dt_cadastro" value="{{ Pais.dt_cadastro }}" class="form-control" disabled style="width: 190px">
+        <label for="dt_ult_alt">Data da Última Alteração:</label>
+        <input type="datetime" id="dt_ult_alt" name="dt_ult_alt" value="{{ Pais.dt_ult_alt }}" class="form-control" disabled style="width: 190px">
+        
+    </div>
 {% endblock %}
-{% block submit-btn %}SALVAR{% endblock %}
-
-{% comment %} {% extends 'pages/base.html' %}
-
-{% block modal-content %}
-<h1>Editar País</h1>
-
-{% csrf_token %}
-{{ form.as_p }}
-teste
-{% endblock  %} {% endcomment %}
+{% block submit-btn %}{% endblock  %}
+{% block info %}{% endblock  %}
+{% block menu %}{% endblock  %}
+{% block scripts %}{% endblock %}
+{% block footer %}{% endblock %}
