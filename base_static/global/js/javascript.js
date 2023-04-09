@@ -3,12 +3,16 @@ $(document).on('click', '[data-bs-toggle="modal"]', function (event) {
     var url = $(this).data('url');
     $.ajax({
         url: url,
-        success: function (data) {
-            console.log(data);
+        success: function (data) {        
             $('#modalViewLabel').html(data.funcao)
             $('#modalView #id').val(data.id);
             $('#modalView #nm-pais').val(data.nm_pais);
+            $('#modalView #sigla').val(data.sigla);
+            $('#modalView #ddi').val(data.ddi);
+            $('#modalView #dt-cad').val(data.dt_cad);            
+            $('#modalView #dt-alt').val(data.dt_ult);
             $('#modalView').modal('show');
+            console.log(data);
         }
     });
 });

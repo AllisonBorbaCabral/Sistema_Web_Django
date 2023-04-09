@@ -89,24 +89,24 @@ WSGI_APPLICATION = 'Sistema.wsgi.application'
 
 DATABASES = {
     # Banco Nitro
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'SISTEMA_WEB',
-    #     'USER': 'root',
-    #     'PASSWORD': 'iGke%H#c8dV@hW',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # },
-
-    # Banco Nebulosa
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SISTEMA_WEB',
         'USER': 'root',
         'PASSWORD': 'iGke%H#c8dV@hW',
-        'HOST': '172.16.20.151',
+        'HOST': 'localhost',
         'PORT': '3306',
     },
+
+    # Banco Nebulosa
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'SISTEMA_WEB',
+    #     'USER': 'root',
+    #     'PASSWORD': 'iGke%H#c8dV@hW',
+    #     'HOST': '172.16.20.151',
+    #     'PORT': '3306',
+    # },
 }
 
 
