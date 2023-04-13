@@ -4,16 +4,28 @@
 {% block form-title %}Cadastro de Países{% endblock %}
 {% block form-config %}method="POST"{% endblock %}
 {% block form-content %}    
-    <label for="nm_pais">País:</label>
-    <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control w-100" name="nm_pais" value="" required maxlength="100">
+    <div class="row mb-2 mt-2">
+        <div class="col-sm-4">
+            <label for="nm_pais">País:</label>
+            <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control" name="nm_pais" value="" required maxlength="100">
+        </div>
+        <div class="col-sm-3">
+            <label for="situacao">Situação:</label>            
+            <select id="situacao" name="situacao" class="form-select" aria-label="situacao" required>
+                <option value="" disabled selected>Selecione uma situação</option>
+                <option value="A">ATIVO</option>
+                <option value="I">INATIVO</option>                
+            </select>
+        </div>
+    </div>
     <div class="row mb-2 mt-2">
         <div class="col-sm-3">
             <label for="ddi">DDI:</label>
-            <input id="ddi" type="text" placeholder="DDI" class="form-control" value="{{ Pais.2 }}" name="ddi" required style="width: 100px;" maxlength="4">
+            <input id="ddi" type="text" placeholder="DDI" class="form-control" value="" name="ddi" required style="width: 100px;" maxlength="4">
         </div>
         <div class="col-sm">
             <label for="sigla">Sigla:</label>
-            <input id="sigla" type="text" placeholder="Sigla" class="form-control" value="{{ Pais.3 }}" name="sigla" required style="width: 100px;" maxlength="3">
+            <input id="sigla" type="text" placeholder="Sigla" class="form-control" value="" name="sigla" required style="width: 100px;" maxlength="3">
         </div>
     </div>
     <div class="row mb-2 mt-2">
@@ -26,6 +38,5 @@
             <input id="dt_ult_alteracao" type="text" name="dt_ult_alteracao" value="{{ dt_ult_alteracao }}" class="form-control" style="width:190px" readonly>
         </div>
     </div>
-    
 {% endblock %}
 {% block submit-btn-name %}CADASTRAR{% endblock %}

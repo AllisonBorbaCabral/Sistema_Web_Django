@@ -54,9 +54,25 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import DetailView, FormView, ListView, UpdateView
 
+# import logging
+
 from Sistema.Models.pais import pais
 
 from .forms import *
+
+
+# import logging
+
+# logger = logging.getLogger(__name__)
+# logger.setLevel(logging.INFO)
+
+# # Configuração do handler do logger
+# log_file = 'logs/views.log'
+# file_handler = logging.FileHandler(log_file)
+# file_handler.setLevel(logging.INFO)
+# file_formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+# file_handler.setFormatter(file_formatter)
+# logger.addHandler(file_handler)
 
 
 class PaisListView(ListView):
@@ -95,41 +111,45 @@ class PaisCreateView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['dt_cadastro'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-        context['dt_ult_alteracao'] = datetime.now().strftime(
-            '%d/%m/%Y %H:%M:%S')
+        context['dt_cadastro'] = datetime.now()
+        context['dt_ult_alteracao'] = datetime.now()
+
         return context
 
     def form_valid(self, form):
+        print("CHEGUEI AQUI")
         data = form.cleaned_data
-        dt_cadastro = datetime.strptime(
-            data['dt_cadastro'], '%d/%m/%Y %H:%M:%S')
-        dt_ult_alteracao = datetime.strptime(
-            data['dt_cadastro'], '%d/%m/%Y %H:%M:%S')
+        teste = form.fields.values
+        print(teste)
+
         obj = {
             'nm_pais': data['nm_pais'],
             'ddi': data['ddi'],
             'sigla': data['sigla'],
-
-            'dt_cadastro': dt_cadastro.strftime('%Y/%m/%d %H:%M:%S'),
-            'dt_ult_alteracao': dt_ult_alteracao.strftime('%Y/%m/%d %H:%M:%S'),
+            'situacao': data['situacao'],
         }
-        print(obj['dt_cadastro'])
+
         try:
             # Execução da query de insert
             with transaction.atomic():
                 with connection.cursor() as cursor:
-                    qy = "INSERT INTO sistema_pais (nm_pais, ddi, sigla, dt_cadastro, dt_ult_alteracao) VALUES (%s, %s, %s, %s, %s)"
+                    qy = "INSERT INTO sistema_pais (NM_PAIS, DDI, SIGLA, DT_CADASTRO, DT_ULT_ALTERACAO, SITUACAO) VALUES (%s, %s, %s, %s, %s, %s)"
                     values = (obj['nm_pais'], obj['ddi'], obj['sigla'],
-                              obj['dt_cadastro'], obj['dt_ult_alteracao'])
+                              dt_cadastro, dt_ult_alteracao, obj['situacao'])
                     cursor.execute(qy, values)
                     messages.success(
                         self.request, 'País cadastrado com sucesso.')
+
+                    # Log da execução bem-sucedida
+                    # logger.info(f"Cadastro de país bem-sucedido: {obj}")
 
         except mysql.connector.Error as error:
             # Tratamento da exceção
             messages.error(
                 self.request, f'Ocorreu um erro ao cadastrar o país: {error}')
+
+            # Log do erro
+            # logger.error(f"Erro ao cadastrar país: {error}")
 
         return super().form_valid(form)
 

@@ -13,11 +13,11 @@
                         Menu
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'consulta-cliente' %}"><i
-                                    class="fa-solid fa-users"></i> Clientes</a></li>
+                        {% comment %} <li><a class="dropdown-item" href="{% url 'consulta-cliente' %}"><i
+                                    class="fa-solid fa-users"></i> Clientes</a></li> {% endcomment %}
                         <li><a class="dropdown-item" href="{% url 'pais:lista-pais' %}"><i
                                     class="fa-solid fa-earth-americas"></i> Países</a></li>
-                        <li><a class="dropdown-item" href="{% url 'consulta-estado' %}"><i
+                        {% comment %} <li><a class="dropdown-item" href="{% url 'consulta-estado' %}"><i
                                     class="fa-solid fa-map-location-dot"></i> Estados</a></li>
                         <li><a class="dropdown-item" href="{% url 'consulta-cidade' %}"><i class="fa-solid fa-city"></i>
                                 Cidades</a></li>
@@ -30,7 +30,7 @@
                         <li><a class="dropdown-item" href="{% url 'consulta-tamanho' %}"><i
                                     class="fa-solid fa-ruler-vertical"></i> Tamanhos</a></li>
                         <li><a class="dropdown-item" href="{% url 'consulta-pedido' %}"><i
-                                    class="fa-solid fa-pen-to-square"></i> Pedidos</a></li>
+                                    class="fa-solid fa-pen-to-square"></i> Pedidos</a></li> {% endcomment %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>

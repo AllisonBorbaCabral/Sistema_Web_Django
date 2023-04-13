@@ -12,13 +12,7 @@ class pais(models.Model):
         db_column='DT_CADASTRO', null=False)
     dt_ult_alteracao = models.DateTimeField(
         db_column='DT_ULT_ALTERACAO', null=False)
-
-    @property
-    def readonly_cadastro(self):
-        return self.dt_cadastro
-
-    def readonly_alteracao(self):
-        return self.dt_ult_alt
+    situacao = models.CharField(db_column='SITUACAO', max_length=1, null=False)
 
     def __str__(self):
         return " {} ".format(self.nm_pais)

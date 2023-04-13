@@ -39,15 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'Sistema',
-    'formapagto',
+    # 'formapagto',
     'pais',
-    'estado',
-    'cidade',
-    'condicaopagto',
-    'cliente',
-    'cor',
-    'pedido',
-    'tamanho',
+    # 'estado',
+    # 'cidade',
+    # 'condicaopagto',
+    # 'cliente',
+    # 'cor',
+    # 'pedido',
+    # 'tamanho',
 ]
 
 MIDDLEWARE = [
@@ -88,15 +88,25 @@ WSGI_APPLICATION = 'Sistema.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # Banco Nitro
+    # Banco LocaWeb
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'SISTEMA_WEB',
-        'USER': 'root',
+        'NAME': 'sistemadjango',
+        'USER': 'sistemadjango',
         'PASSWORD': 'iGke%H#c8dV@hW',
-        'HOST': 'localhost',
+        'HOST': 'sistemadjango.mysql.dbaas.com.br',
         'PORT': '3306',
     },
+
+    # Banco Nitro
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'SISTEMA_WEB',
+    #     'USER': 'root',
+    #     'PASSWORD': 'iGke%H#c8dV@hW',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # },
 
     # Banco Nebulosa
     # 'default': {
