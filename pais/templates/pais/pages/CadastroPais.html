@@ -5,7 +5,7 @@
 {% block form-config %}method="POST"{% endblock %}
 {% block form-content %}    
     <label for="nm_pais">País:</label>
-    <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control w-100" name="nm_pais" value="{{ Pais.1 }}" required maxlength="100">
+    <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control w-100" name="nm_pais" value="" required maxlength="100">
     <div class="row mb-2 mt-2">
         <div class="col-sm-3">
             <label for="ddi">DDI:</label>
@@ -19,11 +19,11 @@
     <div class="row mb-2 mt-2">
         <div class="col-sm-4">
             <label for="dt_cadastro">Data de Cadastro:</label>
-            <input id="dt_cadastro" type="datetime" name="dt_cadastro" value="{{ Pais.4 }}" class="form-control" disabled style="width:190px">
+            <input id="dt_cadastro" type="text" name="dt_cadastro" value="{{ dt_cadastro }}" class="form-control" style="width:190px" readonly>
         </div>
         <div class="col-sm">
-            <label for="dt_ult_alt">Data da Última Alteração:</label>
-            <input id="dt_ult_alt" type="datetime" name="dt_cadastro" value="{{ Pais.5 }}" class="form-control" disabled style="width:190px">
+            <label for="dt_ult_alteracao">Data da Última Alteração:</label>
+            <input id="dt_ult_alteracao" type="text" name="dt_ult_alteracao" value="{{ dt_ult_alteracao }}" class="form-control" style="width:190px" readonly>
         </div>
     </div>
     

@@ -11,8 +11,7 @@ $(document).on('click', '[data-bs-toggle="modal"]', function (event) {
             $('#modalView #ddi').val(data.ddi);
             $('#modalView #dt-cad').val(data.dt_cad);            
             $('#modalView #dt-alt').val(data.dt_ult);
-            $('#modalView').modal('show');
-            console.log(data);
+            $('#modalView').modal('show');            
         }
     });
 });

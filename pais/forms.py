@@ -1,14 +1,17 @@
 from django import forms
 from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from Sistema.Models.pais import pais
 from django.utils import timezone
+from django.views.generic.edit import UpdateView
+
+from Sistema.Models.pais import pais
 
 
 class CadastroPais(forms.Form):
     nm_pais = forms.CharField(label='País', max_length=100)
     ddi = forms.CharField(label='DDI', max_length=5)
     sigla = forms.CharField(label='Sigla', max_length=3)
+    dt_cadastro = forms.DateTimeField(initial=timezone.now())
+    dt_ult_alteracao = forms.DateTimeField(initial=timezone.now())
 
 
 class EditarPaisView(UpdateView):

@@ -43,7 +43,7 @@
 #             return redirect(reverse('consulta-pais'))
 #     else:
 #         return render(request, 'pais/pages/EditarPais.html', {'Pais': Pais})
-
+from datetime import datetime
 
 import mysql.connector
 from django.contrib import messages
@@ -83,7 +83,7 @@ class PaisSelectView(DetailView):
             'sigla': obj.sigla,
             'ddi': obj.ddi,
             'dt_cad': obj.dt_cadastro.strftime('%d/%m/%Y - %H:%M:%S'),
-            'dt_ult': obj.dt_ult_alt.strftime('%d/%m/%Y - %H:%M:%S')
+            'dt_ult': obj.dt_ult_alteracao.strftime('%d/%m/%Y - %H:%M:%S')
         }
         return JsonResponse(data)
 
@@ -91,25 +91,37 @@ class PaisSelectView(DetailView):
 class PaisCreateView(FormView):
     form_class = CadastroPais
     template_name = 'pais/pages/CadastroPais.html'
-    success_url = reverse_lazy('consulta-pais')
+    success_url = reverse_lazy('pais:lista-pais')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['dt_cadastro'] = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        context['dt_ult_alteracao'] = datetime.now().strftime(
+            '%d/%m/%Y %H:%M:%S')
+        return context
 
     def form_valid(self, form):
         data = form.cleaned_data
+        dt_cadastro = datetime.strptime(
+            data['dt_cadastro'], '%d/%m/%Y %H:%M:%S')
+        dt_ult_alteracao = datetime.strptime(
+            data['dt_cadastro'], '%d/%m/%Y %H:%M:%S')
         obj = {
             'nm_pais': data['nm_pais'],
             'ddi': data['ddi'],
             'sigla': data['sigla'],
-            'dt_cadastro': timezone.now(),
-            'dt_ult_alt': timezone.now(),
-        }
 
+            'dt_cadastro': dt_cadastro.strftime('%Y/%m/%d %H:%M:%S'),
+            'dt_ult_alteracao': dt_ult_alteracao.strftime('%Y/%m/%d %H:%M:%S'),
+        }
+        print(obj['dt_cadastro'])
         try:
             # Execução da query de insert
             with transaction.atomic():
                 with connection.cursor() as cursor:
                     qy = "INSERT INTO sistema_pais (nm_pais, ddi, sigla, dt_cadastro, dt_ult_alteracao) VALUES (%s, %s, %s, %s, %s)"
                     values = (obj['nm_pais'], obj['ddi'], obj['sigla'],
-                              obj['dt_cadastro'], obj['dt_ult_alt'])
+                              obj['dt_cadastro'], obj['dt_ult_alteracao'])
                     cursor.execute(qy, values)
                     messages.success(
                         self.request, 'País cadastrado com sucesso.')

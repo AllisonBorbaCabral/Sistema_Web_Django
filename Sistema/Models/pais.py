@@ -9,8 +9,8 @@ class pais(models.Model):
                            null=False, verbose_name='DDI')
     sigla = models.CharField(db_column='SIGLA', max_length=3, null=False)
     dt_cadastro = models.DateTimeField(
-        db_column='DT_CADASTRO', auto_now_add=True, null=False)
-    dt_ult_alt = models.DateTimeField(
+        db_column='DT_CADASTRO', null=False)
+    dt_ult_alteracao = models.DateTimeField(
         db_column='DT_ULT_ALTERACAO', null=False)
 
     @property
