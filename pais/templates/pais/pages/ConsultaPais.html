@@ -5,37 +5,161 @@
 
 {% block modal %}
 {{block.super}}
-<div id="modalView" class="modal fade" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalViewLabel"
+<div id="modalViewPais" class="modal fade" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalViewPaisLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalViewLabel"></h1>
+                <h1 class="modal-title fs-5" id="modalViewPaisLabel"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div class="modal-body">
-                <label for="id" style="display: inline-block">ID:</label>
-                <input type="number" id="id" name="id" value="" class="form-control" disabled
-                    style="width: 60px; display: inline-block; margin-right: 50px">
-                <label for="pais">País:</label>
-                <input id="nm-pais" type="text" class="form-control" value="" name="pais" disabled
-                    style="width: 600px; display: inline-block">
-                <div class="col-sm">
-                    <label for="sigla">Sigla:</label>
-                    <input id="sigla" type="text" class="form-control" value="" name="sigla" disabled
-                        style="width: 60px; display: inline-block; margin-right: 30px; margin-top: 4px">
-                    <label for="ddi">DDI:</label>
-                    <input id="ddi" type="text" class="form-control" value="" name="ddi" disabled
-                        style="width: 70px; display: inline-block;">
+            <div class="modal-body">                
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-1"> 
+                        <label for="id" style="display: inline-block">ID:</label>
+                        <input id="id" type="number" class="form-control" value="" name="id" disabled>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="situacao">Situação:</label>
+                        <input id="situacao" type="text" class="form-control" value="" name="situacao" disabled>
+                    </div>
                 </div>
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-5">
+                        <label for="pais" style="display: inline-block">País:</label>
+                        <input id="nm-pais" type="text" class="form-control" value="" name="pais" disabled>
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="sigla">Sigla:</label>
+                        <input id="sigla" type="text" class="form-control" value="" name="sigla" disabled>
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="ddi">DDI:</label>
+                        <input id="ddi" type="text" class="form-control" value="" name="ddi" disabled>
+                    </div>
+                </div>                
             </div>
             <div class="modal-footer">
-                <label for="dt-cad">Data de Cadastro:</label>
-                <input id="dt-cad" type="datetime" class="form-control fs-6" value="" name="dt-cad" disabled
-                    style="width: 190px;">
-                <label for="dt-alt">Data da Última Alteração:</label>
-                <input id="dt-alt" type="datetime" class="form-control fs-6" value="" name="dt-alt" disabled
-                    style="width: 190px;">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="dt-cad">Data de Cadastro:</label>
+                        <input id="dt-cad" type="datetime" class="form-control" value="" name="dt-cad" disabled>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dt-alt">Data de Última Alteração:</label>
+                        <input id="dt-alt" type="datetime" class="form-control" value="" name="dt-alt" disabled>
+                    </div>                    
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalEditPais" class="modal fade" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalEditPaisLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalEditPaisLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">    
+                <form method="POST">
+                    {% csrf_token %}     
+                    <div class="row mb-2 mt-2">
+                        <div class="col-sm-1"> 
+                            <label for="id" style="display: inline-block">ID:</label>
+                            <input id="id" type="number" class="form-control" value="" name="id" disabled>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="situacao">Situação:</label>
+                            <select id="situacao" name="situacao" class="form-select" aria-label="situacao" required>
+                                <option id="ativo" value="A">ATIVO</option>
+                                <option id="inativo" value="I">INATIVO</option>                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2 mt-2">
+                        <div class="col-sm-5">
+                            <label for="pais" style="display: inline-block">País:</label>
+                            <input id="nm-pais" type="text" class="form-control" value="" name="pais">
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="sigla">Sigla:</label>
+                            <input id="sigla" type="text" class="form-control" value="" name="sigla">
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="ddi">DDI:</label>
+                            <input id="ddi" type="text" class="form-control" value="" name="ddi">
+                        </div>
+                    </div>                                                   
+                </form>       
+            </div>  
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="dt-cad">Data de Cadastro:</label>
+                        <input id="dt-cad" type="datetime" class="form-control" value="" name="dt-cad" disabled>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dt-alt">Data de Última Alteração:</label>
+                        <input id="dt-alt" type="datetime" class="form-control" value="" name="dt-alt" disabled>
+                    </div>                    
+                </div>
+                <button type="submit" class="btn btn-primary" >Salvar</button>|
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalDeletePais" class="modal fade" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modalDeletePaisLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalDeletePaisLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">                
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-1"> 
+                        <label for="id" style="display: inline-block">ID:</label>
+                        <input id="id" type="number" class="form-control" value="" name="id" disabled>
+                    </div>
+                    <div class="col-sm-2">
+                        <label for="situacao">Situação:</label>
+                        <input id="situacao" type="text" class="form-control" value="" name="situacao" disabled>
+                    </div>
+                </div>
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-5">
+                        <label for="pais" style="display: inline-block">País:</label>
+                        <input id="nm-pais" type="text" class="form-control" value="" name="pais" disabled>
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="sigla">Sigla:</label>
+                        <input id="sigla" type="text" class="form-control" value="" name="sigla" disabled>
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="ddi">DDI:</label>
+                        <input id="ddi" type="text" class="form-control" value="" name="ddi" disabled>
+                    </div>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="dt-cad">Data de Cadastro:</label>
+                        <input id="dt-cad" type="datetime" class="form-control" value="" name="dt-cad" disabled>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dt-alt">Data de Última Alteração:</label>
+                        <input id="dt-alt" type="datetime" class="form-control" value="" name="dt-alt" disabled>
+                    </div>                    
+                </div>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>|
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
@@ -58,28 +182,36 @@
                     <th scope="col">DDI</th>
                     <th scope="col">CADASTRO</th>
                     <th scope="col">ÚLTIMA ALTERAÇÃO</th>
+                    <th scope="col">SITUAÇÃO</th>
                     <th scope="col-sm">OPÇÕES</th>
                 </tr>
             </thead>
             <tbody class="fs-5 table-light">
                 {% for pais in object_list %}
                 <tr>
-                    <th scope="row">{{pais.0}}</th>
+                    <td>{{pais.0}}</td>
                     <td>{{pais.1}}</td>
                     <td>{{pais.2}}</td>
                     <td>{{pais.3}}</td>
-                    <td>{{pais.4}}</td>
-                    <td>{{pais.5}}</td>
+                    <td>{{pais.4|date:'d/m/Y H:i:s'}}</td>
+                    <td>{{pais.5|date:'d/m/Y H:i:s'}}</td>
+                    {% if pais.6 == 'A' %}
+                        <td>ATIVO</td>
+                    {% else %}
+                        <td>INATIVO</td>
+                    {% endif %}
                     <td>
                         <button type="button" class="btn btn-sm btn-info"
                             data-url="{% url 'pais:consulta-pais' pk=pais.0 %}" data-bs-toggle="modal"
-                            data-bs-target="#modalView"><i class="fa-solid fa-eye"></i></button>
+                            data-bs-target="#modalViewPais"><i class="fa-solid fa-eye"></i></button>
                         |
-                        <button type="button" class="btn btn-sm btn-secondary edit-pais" data-pk="{{ pais.0 }}"><i
-                                class="fa-solid fa-pen"></i></button>
+                        <button type="button" class="btn btn-sm btn-secondary" 
+                            data-url="{% url 'pais:editar-pais' pk=pais.0 %}" data-bs-toggle="modal"
+                            data-bs-target="#modalEditPais"><i class="fa-solid fa-pen"></i></button>
                         |
-                        {% comment %} <a class="btn btn-sm btn-danger" href="{% url 'consulta-estado' %}"><i
-                                class="fa-solid fa-trash"></i></a> {% endcomment %}
+                        <button type="button" class="btn btn-sm btn-danger" 
+                            data-url="{% url 'pais:excluir-pais' pk=pais.0 %}" data-bs-toggle="modal"
+                            data-bs-target="#modalDeletePais"><i class="fa-solid fa-trash"></i></button>                        
                     </td>
                     {% endfor %}
                 </tr>

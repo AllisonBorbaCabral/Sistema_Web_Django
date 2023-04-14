@@ -19,7 +19,10 @@ app_name = 'pais'
 urlpatterns = [
     path('pais/', views.PaisListView.as_view(), name='lista-pais'),
     path('pais/cadastro/', views.PaisCreateView.as_view(), name="cadastrar-pais"),
-    # path('pais/editar/<int:pk>/', views.PaisUpdateView.as_view(), name="editar-pais"),
     path('pais/consulta/<int:pk>/',
-         views.PaisSelectView.modal_pais, name="consulta-pais"),
+         views.PaisSelectView.modal_view, name="consulta-pais"),
+    path('pais/editar/<int:pk>/',
+         views.PaisUpdateView.modal_edit, name="editar-pais"),
+    path('pais/excluir/<int:pk>/',
+         views.PaisUpdateView.modal_edit, name="excluir-pais"),
 ]

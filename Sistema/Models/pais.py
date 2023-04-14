@@ -19,3 +19,6 @@ class pais(models.Model):
 
     def getPais(self):
         return (f'{self.nm_pais} - {self.sigla}')
+
+    class Meta:
+        db_table = 'sistema_pais'

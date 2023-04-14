@@ -1,11 +1,3 @@
-# def PaisIndex(request):
-#     pais_list = pais.objects.all()
-#     data = {'pais_list': pais_list}
-#     return render(request, 'pais/pages/ConsultaPais.html', data)
-
-# def PaisCreate(request):
-#     return CadastroPaisView.as_view()(request)
-
 
 # def PaisModalView(request, pk):
 #     Pais = get_object_or_404(pais, pk=pk)
@@ -53,26 +45,12 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import DetailView, FormView, ListView, UpdateView
+from django.core.exceptions import ValidationError
 
-# import logging
 
 from Sistema.Models.pais import pais
 
-from .forms import *
-
-
-# import logging
-
-# logger = logging.getLogger(__name__)
-# logger.setLevel(logging.INFO)
-
-# # Configuração do handler do logger
-# log_file = 'logs/views.log'
-# file_handler = logging.FileHandler(log_file)
-# file_handler.setLevel(logging.INFO)
-# file_formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
-# file_handler.setFormatter(file_formatter)
-# logger.addHandler(file_handler)
+from .forms import CadastroPais, EditarPais
 
 
 class PaisListView(ListView):
@@ -90,7 +68,7 @@ class PaisListView(ListView):
 class PaisSelectView(DetailView):
     model = pais
 
-    def modal_pais(request, pk):
+    def modal_view(request, pk):
         obj = get_object_or_404(pais, pk=pk)
         data = {
             'funcao': 'Detalhes',
@@ -99,7 +77,8 @@ class PaisSelectView(DetailView):
             'sigla': obj.sigla,
             'ddi': obj.ddi,
             'dt_cad': obj.dt_cadastro.strftime('%d/%m/%Y - %H:%M:%S'),
-            'dt_ult': obj.dt_ult_alteracao.strftime('%d/%m/%Y - %H:%M:%S')
+            'dt_ult': obj.dt_ult_alteracao.strftime('%d/%m/%Y - %H:%M:%S'),
+            'situacao': obj.situacao
         }
         return JsonResponse(data)
 
@@ -109,24 +88,15 @@ class PaisCreateView(FormView):
     template_name = 'pais/pages/CadastroPais.html'
     success_url = reverse_lazy('pais:lista-pais')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['dt_cadastro'] = datetime.now()
-        context['dt_ult_alteracao'] = datetime.now()
-
-        return context
-
     def form_valid(self, form):
-        print("CHEGUEI AQUI")
         data = form.cleaned_data
-        teste = form.fields.values
-        print(teste)
-
         obj = {
             'nm_pais': data['nm_pais'],
             'ddi': data['ddi'],
             'sigla': data['sigla'],
             'situacao': data['situacao'],
+            'dt_cadastro': datetime.now(),
+            'dt_ult_alteracao': datetime.now()
         }
 
         try:
@@ -135,33 +105,69 @@ class PaisCreateView(FormView):
                 with connection.cursor() as cursor:
                     qy = "INSERT INTO sistema_pais (NM_PAIS, DDI, SIGLA, DT_CADASTRO, DT_ULT_ALTERACAO, SITUACAO) VALUES (%s, %s, %s, %s, %s, %s)"
                     values = (obj['nm_pais'], obj['ddi'], obj['sigla'],
-                              dt_cadastro, dt_ult_alteracao, obj['situacao'])
+                              obj['dt_cadastro'], obj['dt_ult_alteracao'], obj['situacao'])
                     cursor.execute(qy, values)
                     messages.success(
                         self.request, 'País cadastrado com sucesso.')
-
-                    # Log da execução bem-sucedida
-                    # logger.info(f"Cadastro de país bem-sucedido: {obj}")
-
         except mysql.connector.Error as error:
             # Tratamento da exceção
             messages.error(
                 self.request, f'Ocorreu um erro ao cadastrar o país: {error}')
-
-            # Log do erro
-            # logger.error(f"Erro ao cadastrar país: {error}")
-
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        try:
+            raise ValidationError('Algum erro ocorreu.')
+        except ValidationError as e:
+            messages.error(self.request, e)
+            return self.render_to_response(self.get_context_data(form=form))
 
-# class PaisUpdateView(UpdateView):
-#     model = pais
-#     template_name = 'pais/pages/EditarPais.html'
-#     form_class = CadastroPais
-#     success_url = reverse_lazy('consulta-pais')
 
-#     def form_valid(self, form):
-#         obj = form.save(commit=False)
-#         obj.dt_ult_alt = timezone.now()
-#         obj.save()
-#         return super().form_valid(form)
+class PaisUpdateView(UpdateView):
+    form_class = EditarPais
+    model = pais
+    template_name = 'pais/pages/EditarPais.html'
+    success_url = reverse_lazy('pais:lista-pais')
+
+    def modal_edit(request, pk):
+        obj = get_object_or_404(pais, pk=pk)
+        data = {
+            'funcao': 'Editar',
+            'id': obj.id,
+            'nm_pais': obj.nm_pais,
+            'sigla': obj.sigla,
+            'ddi': obj.ddi,
+            'dt_cad': obj.dt_cadastro.strftime('%d/%m/%Y - %H:%M:%S'),
+            'dt_ult': obj.dt_ult_alteracao.strftime('%d/%m/%Y - %H:%M:%S'),
+            'situacao': obj.situacao
+        }
+        return JsonResponse(data)
+
+    # def form_valid(self, form):
+    #     Pais = get_object_or_404(pais, pk=self.object.pk)
+    #     data = form.cleaned_data
+    #     obj = {
+    #         'id': data['id'],
+    #         'nm_pais': data['nm_pais'],
+    #         'ddi': data['ddi'],
+    #         'sigla': data['sigla'],
+    #         'situacao': data['situacao'],
+    #         'dt_ult_alteracao': datetime.now()
+    #     }
+
+    #     try:
+    #         # Execução da query de update
+    #         with transaction.atomic():
+    #             with connection.cursor() as cursor:
+    #                 if obj['nm_pais'] != Pais.nm_pais or obj['ddi'] != Pais.ddi or obj['sigla'] != Pais.sigla or obj['situacao'] != Pais.situacao:
+    #                     qy = "UPDATE sistema_pais SET NM_PAIS = %s, DDI = %s, SIGLA = %s, situacao = %s, DT_ULT_ALTERACAO = %s WHERE ID = %s"
+    #                     values = (obj['nm_pais'], obj['ddi'], obj['sigla'],
+    #                               obj['situacao'], datetime.now(), obj['id'])
+    #                     cursor.execute(qy, values)
+    #                     messages.success(
+    #                         self.request, 'País cadastrado com sucesso.')
+    #     except mysql.connector.Error as error:
+    #         # Tratamento da exceção
+    #         messages.error(
+    #             self.request, f'Ocorreu um erro ao cadastrar o país: {error}')
+    #     return super().form_valid(form)

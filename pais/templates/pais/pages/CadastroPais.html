@@ -1,11 +1,23 @@
-{% extends 'pages/form.html' %}
+{% extends 'pages/base.html' %}
 
-{% block title %}Cadastro de Países{% endblock %}
-{% block form-title %}Cadastro de Países{% endblock %}
-{% block form-config %}method="POST"{% endblock %}
-{% block form-content %}    
+{% block title %}Cadastro de Países{% endblock  %}
+
+{% block content %}
+<h1>Cadastro de Países</h1>
+<p class="lead" style="color: red"> * Campos Obrigatórios</p>
+{% if form.errors %}
+<div class="alert alert-danger">
+    {% for field in form %}
+        {% for error in field.errors %}
+            <strong>{{ field.label }}</strong>: {{ error }}
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endif %}
+<form method="POST" action="{% url 'pais:cadastrar-pais' %}" >
+    {% csrf_token %}
     <div class="row mb-2 mt-2">
-        <div class="col-sm-4">
+        <div class="col-sm-4">            
             <label for="nm_pais">País:</label>
             <input id="nm_pais" type="text" placeholder="Nome do País" class="form-control" name="nm_pais" value="" required maxlength="100">
         </div>
@@ -19,24 +31,26 @@
         </div>
     </div>
     <div class="row mb-2 mt-2">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <label for="ddi">DDI:</label>
             <input id="ddi" type="text" placeholder="DDI" class="form-control" value="" name="ddi" required style="width: 100px;" maxlength="4">
         </div>
-        <div class="col-sm">
+        <div class="col-sm-3">
             <label for="sigla">Sigla:</label>
             <input id="sigla" type="text" placeholder="Sigla" class="form-control" value="" name="sigla" required style="width: 100px;" maxlength="3">
         </div>
     </div>
-    <div class="row mb-2 mt-2">
+    {% comment %} <div class="row mb-2 mt-2">
         <div class="col-sm-4">
             <label for="dt_cadastro">Data de Cadastro:</label>
-            <input id="dt_cadastro" type="text" name="dt_cadastro" value="{{ dt_cadastro }}" class="form-control" style="width:190px" readonly>
+            <input id="dt_cadastro" type="datetime" name="dt_cadastro" value="{{ form.dt_cadastro.value }}" class="form-control" style="width:190px" readonly>
         </div>
         <div class="col-sm">
             <label for="dt_ult_alteracao">Data da Última Alteração:</label>
-            <input id="dt_ult_alteracao" type="text" name="dt_ult_alteracao" value="{{ dt_ult_alteracao }}" class="form-control" style="width:190px" readonly>
+            <input id="dt_ult_alteracao" type="datetime" name="dt_ult_alteracao" value="{{ form.dt_ult_alteracao.value }}" class="form-control" style="width:190px" readonly>
         </div>
-    </div>
+    </div> {% endcomment %}
+    <button type="submit" class="btn btn-primary">CADASTRAR</button>
+</form>
+
 {% endblock %}
-{% block submit-btn-name %}CADASTRAR{% endblock %}
